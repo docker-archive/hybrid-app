@@ -5,7 +5,7 @@ services:
   database:
     build:
       context: ./database
-    image: registrationdb
+    image: java-mysql
     # set default mysql root password, change as needed
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -19,7 +19,7 @@ services:
   webserver:
     build: 
       context: ./appserver
-    image: registration
+    image: java-web
     ports:
       - "8080:8080" 
       - "8000:8000"

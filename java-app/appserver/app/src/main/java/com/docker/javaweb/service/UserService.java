@@ -1,6 +1,6 @@
-package com.docker.UserSignup.service;
+package com.docker.javaweb.service;
 
-import com.docker.UserSignup.model.User;
+import com.docker.javaweb.model.User;
 
 public interface UserService {
 	User save(User user);

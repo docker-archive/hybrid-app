@@ -1,11 +1,11 @@
-package com.docker.UserSignup.service;
+package com.docker.javaweb.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.docker.UserSignup.model.User;
-import com.docker.UserSignup.repository.UserRepository;
+import com.docker.javaweb.model.User;
+import com.docker.javaweb.repository.UserRepository;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {

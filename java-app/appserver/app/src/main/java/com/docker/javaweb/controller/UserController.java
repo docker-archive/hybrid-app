@@ -1,4 +1,4 @@
-package com.docker.UserSignup.controller;
+package com.docker.javaweb.controller;
 
 import javax.validation.Valid;
 
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.docker.UserSignup.model.User;
-import com.docker.UserSignup.model.UserLogin;
-import com.docker.UserSignup.service.UserService;
+import com.docker.javaweb.model.User;
+import com.docker.javaweb.model.UserLogin;
+import com.docker.javaweb.service.UserService;
 
 @Controller
 @SessionAttributes("user")

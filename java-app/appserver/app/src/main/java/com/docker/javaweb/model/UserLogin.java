@@ -1,4 +1,4 @@
-package com.docker.UserSignup.model;
+package com.docker.javaweb.model;
 
 import javax.validation.constraints.Size;
 

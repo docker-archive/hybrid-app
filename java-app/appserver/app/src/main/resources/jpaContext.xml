@@ -11,7 +11,7 @@
 
 	<context:annotation-config />
 	
-	<jpa:repositories base-package="com.docker.UserSignup.repository" />
+	<jpa:repositories base-package="com.docker.javaweb.repository" />
 	
 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 

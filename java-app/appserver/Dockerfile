@@ -2,7 +2,7 @@
 # Build the app using maven in a container
 #
 FROM maven:latest AS devenv
-WORKDIR /usr/src/signup 
+WORKDIR /usr/src/java-app 
 COPY app/pom.xml .
 RUN mvn -B -f pom.xml -s /usr/share/maven/ref/settings-docker.xml dependency:resolve
 COPY ./app .
@@ -27,7 +27,7 @@ ADD tomcat/mysql-connector-java-5.1.36-bin.jar $CATALINA_HOME/lib/
 
 # create mount point for volume with application
 WORKDIR $CATALINA_HOME/webapps/
-COPY --from=devenv /usr/src/signup/target/Signup.war .
+COPY --from=devenv /usr/src/java-app/target/java-web.war .
 
 # add tomcat jpda debugging environmental variables
 #ENV JPDA_OPTS="-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n"

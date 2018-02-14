@@ -45,7 +45,7 @@ namespace SignupApiCore.Repositories
         public User AddUser(User user)
         {
             var sqlCommand = "INSERT INTO user (dateOfBirth, emailAddress, firstName, lastName, password, userName)";
-            sqlCommand += "VALUES(?dateOfBirth, ?emailAddress, ?firstName, ?lastName, ?password, u?serName)";
+            sqlCommand += "VALUES(?dateOfBirth, ?emailAddress, ?firstName, ?lastName, ?password, ?userName)";
 
             var parameters = new List<(string, object)>
             {

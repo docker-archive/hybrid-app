@@ -1,0 +1,49 @@
+networks:
+  back-tier: {}
+  front-tier: {}
+services:
+  database:
+    deploy:
+      placement:
+        constraints:
+        - node.platform.os == linux
+    environment:
+      MYSQL_ROOT_PASSWORD: DockerCon!!!
+    image: dockersamples/hybrid-app-db
+    networks:
+      back-tier: null
+    ports:
+    - mode: ingress
+      published: 3306
+      target: 3306
+  java-app:
+    deploy:
+      placement:
+        constraints:
+        - node.platform.os == linux
+    image: dockersamples/hybrid-app-web
+    networks:
+      back-tier: null
+      front-tier: null
+    ports:
+    - mode: ingress
+      published: 8000
+      target: 8000
+    - mode: ingress
+      published: 8080
+      target: 8080
+  netfx-api:
+    deploy:
+      endpoint_mode: dnsrr
+      placement:
+        constraints:
+        - node.platform.os == windows
+    image: dockersamples/hybrid-app-api:netfx
+    networks:
+      back-tier: null
+    ports:
+    - mode: host
+      published: 57989
+      target: 80
+version: '3.3'
+

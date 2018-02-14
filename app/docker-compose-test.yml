@@ -16,22 +16,22 @@ services:
 
   java-app:
     ports:
-      - mode: ingress
-        published: 8080
-        target: 8080
-      - mode: ingress
-        published: 8000
-        target: 8000
-      deploy:
-        placement:
-          constraints:
-          - node.platform.os == linux
+    - mode: ingress
+      published: 8080
+      target: 8080
+    - mode: ingress
+      published: 8000
+      target: 8000
+    deploy:
+      placement:
+        constraints:
+        - node.platform.os == linux
 
   netfx-api:
     ports:
-    - mode: host
-      published: 57989
-      target: 80
+      - mode: host
+        published: 57989
+        target: 80
     deploy:
       endpoint_mode: dnsrr
       placement:

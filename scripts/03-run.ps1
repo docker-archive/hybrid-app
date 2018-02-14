@@ -3,7 +3,7 @@
 
 docker-compose `
  -f ../app/docker-compose.yml `
- -f ../docker-compose-test.yml `
- config > docker-stack.yml
+ -f ../app/docker-compose-test.yml `
+ config > ../app/docker-stack.yml
 
-docker stack deploy -c docker-stack.yml hybrid-app
+docker stack deploy -c ../app/docker-stack.yml hybrid-app

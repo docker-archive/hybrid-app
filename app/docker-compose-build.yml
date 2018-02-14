@@ -1,0 +1,15 @@
+version: "3.3"
+
+services:
+
+  database:
+    build:
+      context: ../database
+
+  java-app:
+    build: 
+      context: ../java-app
+
+  netfx-api:
+    build:
+      context: ../netfx-api

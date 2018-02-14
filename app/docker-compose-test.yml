@@ -1,0 +1,39 @@
+version: "3.3"
+
+services:
+
+  database:
+    environment:
+      MYSQL_ROOT_PASSWORD: DockerCon!!!
+    ports:      
+      - mode: ingress
+        published: 3306
+        target: 3306
+    deploy:
+      placement:
+        constraints:
+        - node.platform.os == linux
+
+  java-app:
+    ports:
+      - mode: ingress
+        published: 8080
+        target: 8080
+      - mode: ingress
+        published: 8000
+        target: 8000
+      deploy:
+        placement:
+          constraints:
+          - node.platform.os == linux
+
+  netfx-api:
+    ports:
+    - mode: host
+      published: 57989
+      target: 80
+    deploy:
+      endpoint_mode: dnsrr
+      placement:
+        constraints:
+        - node.platform.os == windows

@@ -1,0 +1,14 @@
+version: "3.3"
+
+services:
+
+  database:
+    environment:
+      MYSQL_ROOT_PASSWORD: DockerCon!!!
+    ports:
+      - "3306:3306"
+
+  java-app:
+    ports:
+      - "8080:8080" 
+      - "8000:8000"

@@ -11,3 +11,5 @@ docker image build --platform linux --tag dockersamples/hybrid-app-db ../databas
 docker image build --platform linux --tag dockersamples/hybrid-app-web ../java-app
 
 docker image build --platform windows --tag dockersamples/hybrid-app-api:netfx ../netfx-api
+
+docker image build --platform linux --tag dockersamples/hybrid-app-api:dotnet ../dotnet-api

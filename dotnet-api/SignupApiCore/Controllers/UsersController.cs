@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SignupApiCore.Models;
 using SignupApiCore.Repositories;
+using SignupApiCore.Routing;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace SignupApiCore.Controllers
             return _repository.GetUsers();
         }
 
-        [HttpGet("{userName}")]
+        [HttpGet("{userName}", Name = "GetUserByUsername")]
         public IActionResult Get(string userName)
         {
             var user = _repository.GetUserByUsername(userName);
@@ -34,8 +35,8 @@ namespace SignupApiCore.Controllers
             return Ok(user);
         }
 
-        [HttpGet("{userName}/{password=password}")]
-        public IActionResult Get(string userName, string password)
+        [HttpGet]
+        public IActionResult Get([RequiredFromQuery] string userName, [RequiredFromQuery] string password)
         {
             var user = _repository.GetUserByUsername(userName, password);
             if (user == null)
@@ -46,7 +47,7 @@ namespace SignupApiCore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(User user)
+        public IActionResult Post([FromBody] User user)
         {
             if (!ModelState.IsValid)
             {
@@ -60,7 +61,7 @@ namespace SignupApiCore.Controllers
             }
 
             user = _repository.AddUser(user);            
-            return CreatedAtRoute("DefaultApi", new { userName = user.UserName }, user);
+            return CreatedAtRoute("GetUserByUsername", new { userName = user.UserName }, user);
         }
     }
 }

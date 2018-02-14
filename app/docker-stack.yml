@@ -16,6 +16,18 @@ services:
     - mode: ingress
       published: 3306
       target: 3306
+  dotnet-api:
+    deploy:
+      placement:
+        constraints:
+        - node.platform.os == linux
+    image: dockersamples/hybrid-app-api:dotnet
+    networks:
+      back-tier: null
+    ports:
+    - mode: ingress
+      published: 57989
+      target: 80
   java-app:
     deploy:
       placement:
@@ -32,18 +44,5 @@ services:
     - mode: ingress
       published: 8080
       target: 8080
-  netfx-api:
-    deploy:
-      endpoint_mode: dnsrr
-      placement:
-        constraints:
-        - node.platform.os == windows
-    image: dockersamples/hybrid-app-api:netfx
-    networks:
-      back-tier: null
-    ports:
-    - mode: host
-      published: 57989
-      target: 80
 version: '3.3'
 

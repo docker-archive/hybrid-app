@@ -13,8 +13,8 @@ services:
       - front-tier
       - back-tier
 
-  netfx-api:
-    image: dockersamples/hybrid-app-api:netfx
+  dotnet-api:
+    image: dockersamples/hybrid-app-api:dotnet
     networks:
       - back-tier
 

@@ -27,13 +27,12 @@ services:
         constraints:
         - node.platform.os == linux
 
-  netfx-api:
+  dotnet-api:
     ports:
-      - mode: host
+      - mode: ingress
         published: 57989
         target: 80
     deploy:
-      endpoint_mode: dnsrr
       placement:
         constraints:
-        - node.platform.os == windows
+        - node.platform.os == linux

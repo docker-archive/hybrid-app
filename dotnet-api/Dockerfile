@@ -5,7 +5,7 @@ WORKDIR /src
 COPY SignupApiCore/SignupApiCore.csproj .
 RUN dotnet restore
 
-COPY . .
+COPY SignupApiCore/ .
 RUN dotnet publish
 
 # app image

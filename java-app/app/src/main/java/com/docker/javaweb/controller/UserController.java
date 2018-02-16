@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 
 import com.docker.javaweb.model.User;
 import com.docker.javaweb.model.UserLogin;
@@ -25,7 +28,7 @@ public class UserController {
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public String signup(Model model) {
 		User user = new User();		
-		model.addAttribute("user", user);		
+		model.addAttribute("user", user);	
 		return "signup";
 	}
 	
@@ -33,7 +36,7 @@ public class UserController {
 	public String signup(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {		
 		if(result.hasErrors()) {
 			return "signup";
-		} else if(userService.findByUserName(user.getUserName())) {
+		} else if(userService.userExists(user.getUserName())) {
 			model.addAttribute("message", "User Name exists. Try another user name");
 			return "signup";
 		} else {

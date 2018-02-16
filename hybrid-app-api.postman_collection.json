@@ -1,0 +1,134 @@
+{
+	"info": {
+		"name": "hybrid-app-api",
+		"_postman_id": "78c0af2e-a598-e699-d950-aabf4f078fcc",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "All users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:57989/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "57989",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "Get user by userName"
+			},
+			"response": []
+		},
+		{
+			"name": "User by userName",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:57989/api/users/u1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "57989",
+					"path": [
+						"api",
+						"users",
+						"u1"
+					]
+				},
+				"description": "Get user by userName"
+			},
+			"response": []
+		},
+		{
+			"name": "User by userName and password",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:57989/api/users?userName=u1&password=abc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "57989",
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "u1",
+							"equals": true
+						},
+						{
+							"key": "password",
+							"value": "abc",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "New user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userName\" : \"u1\",\n\t\"firstName\" : \"User\",\n\t\"lastName\" : \"One\",\n\t\"password\" : \"abc\",\n\t\"emailAddress\" : \"u1@abc.com\",\n\t\"dateOfBirth\" : \"1981-12-31\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:57989/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "57989",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "Get user by userName"
+			},
+			"response": []
+		}
+	]
+}

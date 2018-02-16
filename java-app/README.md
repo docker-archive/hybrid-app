@@ -1,3 +1,3 @@
-# Java-App
+Webserver container for the User Signup demo application.
 
-Java servlet CRUD application that connects to MySQL
+This container is a Tomcat 7 servlet engine with remote debugging enabled.

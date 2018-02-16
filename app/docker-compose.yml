@@ -1,0 +1,23 @@
+version: "3.3"
+
+services:
+
+  database:
+    image: dockersamples/hybrid-app-db
+    networks:
+      - back-tier
+
+  java-app:
+    image: dockersamples/hybrid-app-web
+    networks:
+      - front-tier
+      - back-tier
+
+  dotnet-api:
+    image: dockersamples/hybrid-app-api:dotnet
+    networks:
+      - back-tier
+
+networks:
+  back-tier:
+  front-tier:

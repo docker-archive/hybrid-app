@@ -84,7 +84,7 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = Rot13.rot13(password);
+		this.password = password;
 	}
 
 	public String getEmailAddress() {

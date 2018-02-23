@@ -5,5 +5,5 @@ import com.docker.javaweb.model.User;
 public interface UserService {
 	User save(User user);
 	boolean findByLogin(String userName, String password);
-	boolean userExists(String userName);
+	boolean findByUserName(String userName);
 }

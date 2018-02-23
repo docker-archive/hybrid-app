@@ -52,7 +52,7 @@
 	 -->
 	<div class="panel panel-success">
 		<div class="panel-heading">
-			<h3 class="panel-title">DockerCon 2035 Login success</h3>
+			<h3 class="panel-title">Login success</h3>
 		</div>
 		<div class="panel-body">
 		<div class="alert alert-dismissable alert-success">

@@ -36,7 +36,7 @@ public class UserController {
 	public String signup(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {		
 		if(result.hasErrors()) {
 			return "signup";
-		} else if(userService.userExists(user.getUserName())) {
+		} else if(userService.findByUserName(user.getUserName())) {
 			model.addAttribute("message", "User Name exists. Try another user name");
 			return "signup";
 		} else {

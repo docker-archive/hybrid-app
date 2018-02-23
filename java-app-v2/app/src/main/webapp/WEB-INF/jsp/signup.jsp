@@ -111,7 +111,7 @@
 										Name</label>
 									<div class="col-lg-9">
 										<form:input type="text" class="form-control" path="userName"
-											id="userNameInput" placeholder="User Name" />
+											id="userNameInput" placeholder="username" />
 										<form:errors path="userName" cssClass="error" />
 									</div>
 								</div>

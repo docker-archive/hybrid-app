@@ -84,7 +84,7 @@ public class User {
 	}
 
 	public void setPassword(String password) {
-		this.password = Rot13.rot13(password);
+		this.password = password;
 	}
 
 	public String getEmailAddress() {
@@ -102,4 +102,17 @@ public class User {
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}	
+
+	@Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+				", password='" + password + '\'' +
+				", emailAddress='" + emailAddress + '\'' +
+				", dateOfBirth='" + dateOfBirth + '\'' +
+                '}';
+    }
 }

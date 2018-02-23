@@ -18,7 +18,7 @@ import java.util.Random;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-	String baseUri = new String("http://dotnet-api/api/users");
+	String baseUri = System.getenv("BASEURI");
 	RestTemplate rt = new RestTemplate();	
 
 	public User save(User user) {

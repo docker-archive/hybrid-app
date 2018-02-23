@@ -36,11 +36,11 @@ import com.docker.javaweb.service.UserService;
 @Controller
 @SessionAttributes("user")
 public class UserController {
-	
+
 	@Autowired
 	private UserService userService;
 
-	String baseUri = new String("http://dotnet-api/api/users");
+	String baseUri = System.getenv("BASEURI");
 		
 	@RequestMapping(value="/signup", method=RequestMethod.GET)
 	public String signup(Model model) {

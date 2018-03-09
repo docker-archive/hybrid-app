@@ -1,6 +1,5 @@
-networks:
-  back-tier: {}
-  front-tier: {}
+version: '3.3'
+
 services:
   database:
     deploy:
@@ -44,5 +43,7 @@ services:
     - mode: ingress
       published: 8080
       target: 8080
-version: '3.3'
 
+networks:
+  back-tier: {}
+  front-tier: {}

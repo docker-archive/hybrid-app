@@ -1,6 +1,7 @@
-﻿using SignupApi.Entities;
+﻿using NLog;
+using SignupApi.Entities;
 using SignupApi.Models;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -10,57 +11,101 @@ namespace SignupApi.Controllers
 {
     public class UsersController : ApiController
     {
-        public IEnumerable<User> Get()
+        private static Logger _Logger = LogManager.GetCurrentClassLogger();
+
+        public IHttpActionResult Get()
         {
-            using (var context = new SignUpContext())
+            _Logger.Debug("Fetch all users started");
+            try
             {
-                return context.Users.ToList();
-            }                
+                using (var context = new SignUpContext())
+                {
+                    var users = context.Users.ToList();
+                    _Logger.Debug("Fetch all users completed");
+                    return Ok(users);
+                }                
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex, "Fetch all users failed");
+                return InternalServerError(ex);
+            }
         }
 
         [ResponseType(typeof(User))]
         public IHttpActionResult Get(string id)
         {
-            using (var context = new SignUpContext())
+            _Logger.Debug("Fetch user by ID started: {0}", id);
+            try
             {
-                var user = context.Users.FirstOrDefault(x => x.UserName == id);
-                if (user == null)
+                using (var context = new SignUpContext())
                 {
-                    return NotFound();
+                    var user = context.Users.FirstOrDefault(x => x.UserName == id);
+                    if (user == null)
+                    {
+                        _Logger.Info("Fetch user by ID not found: {0}", id);
+                        return NotFound();
+                    }
+                    _Logger.Debug("Fetch user by ID completed: {0}", id);
+                    return Ok(user);
                 }
-                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex, "Fetch user by ID failed: {0}", id);
+                return InternalServerError(ex);
             }
         }
 
         [ResponseType(typeof(User))]
         public IHttpActionResult Get(string userName, string password)
         {
-            using (var context = new SignUpContext())
+            _Logger.Debug("Fetch user by username started: {0}", userName);
+            try
             {
-                var user = context.Users.FirstOrDefault(x => x.UserName == userName && x.Password == password);
-                if (user == null)
+                using (var context = new SignUpContext())
                 {
-                    return NotFound();
+                    var user = context.Users.FirstOrDefault(x => x.UserName == userName && x.Password == password);
+                    if (user == null)
+                    {
+                        _Logger.Info("Fetch user by username not found: {0}", userName);
+                        return NotFound();
+                    }
+                    _Logger.Debug("Fetch user by username completed: {0}", userName);
+                    return Ok(user);
                 }
-                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                _Logger.Error(ex, "Fetch user by username failed: {0}", userName);
+                return InternalServerError(ex);
             }
         }
 
         [ResponseType(typeof(User))]
-        public async Task<IHttpActionResult> PostAuthor(User user)
+        public async Task<IHttpActionResult> PostUser(User user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            using (var context = new SignUpContext())
+            _Logger.Debug("Create user started: {0}", user.UserName);
+            try
             {
-                context.Users.Add(user);
-                await context.SaveChangesAsync();
+                using (var context = new SignUpContext())
+                {
+                    context.Users.Add(user);
+                    await context.SaveChangesAsync();
+                }
+                _Logger.Debug("Create user completed: {0}", user.UserName);
+                return CreatedAtRoute("DefaultApi", new { userName = user.UserName }, user);
             }
-            
-            return CreatedAtRoute("DefaultApi", new { userName = user.UserName }, user);
+            catch (Exception ex)
+            {
+                _Logger.Error(ex, "Create user failed: {0}", user.UserName);
+                return InternalServerError(ex);
+            }
         }
     }
 }

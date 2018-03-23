@@ -25,4 +25,12 @@ RUN Import-Module WebAdministration; `
 COPY start.ps1 .
 ENTRYPOINT ["powershell", ".\\start.ps1"]
 
+HEALTHCHECK --interval=5s `
+ CMD powershell -command `
+    try { `
+     $response = iwr http://localhost/api/diagnostics -UseBasicParsing; `
+     if ($response.StatusCode -eq 200) { return 0} `
+     else {return 1}; `
+    } catch { return 1 }
+
 COPY --from=builder C:\out\_PublishedWebsites\SignupApi .

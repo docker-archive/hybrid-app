@@ -13,5 +13,11 @@ else {
     Write-Verbose "WARN: Using default connection strings, secret file not found at: $env:DB_CONNECTION_STRING_PATH"
 }
 
-Write-Output 'Monitoring IIS'
-C:\ServiceMonitor.exe w3svc
+Write-Output 'Starting w3svc'
+Start-Service W3SVC
+
+Write-Output 'Making HTTP warm-up call'
+Invoke-WebRequest -UseBasicParsing http://localhost/api/diagnostics
+
+Write-Output 'Tailing log file'
+Get-Content -Path "$($env:APP_ROOT)\signup.log" -Tail 1 -Wait

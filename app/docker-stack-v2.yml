@@ -1,0 +1,53 @@
+version: '3.3'
+
+services:
+
+  database:
+    image: dockersamples/hybrid-app-db
+    environment:
+      MYSQL_ROOT_PASSWORD: DockerCon!!!
+    networks:
+      back-tier: null
+    deploy:
+      endpoint_mode: dnsrr
+      placement:
+        constraints:
+        - node.platform.os == linux
+
+  dotnet-api:
+    image: dockersamples/hybrid-app-api:netfx
+    ports:
+    - mode: host
+      published: 8081
+      target: 80
+    networks:
+      back-tier: null
+    deploy:
+      mode: global
+      endpoint_mode: dnsrr
+      placement:
+        constraints:
+        - node.platform.os == windows
+
+  java-app:
+    image: dockersamples/hybrid-app-web:v2
+    environment:
+      BASEURI: http://dotnet-api/api/users
+    ports:
+    - mode: ingress
+      published: 8000
+      target: 8000
+    - mode: ingress
+      published: 8080
+      target: 8080
+    networks:
+      back-tier: null
+      front-tier: null
+    deploy:
+      placement:
+        constraints:
+        - node.platform.os == linux
+
+networks:
+  back-tier: {}
+  front-tier: {}

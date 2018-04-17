@@ -41,10 +41,10 @@ $ docker-compose down
 
 This version of the application introduces a REST microservice written in .Net Framework and running in a Windows container that reads and writes to the MySQL database. The Java application was rewritten to use the microservice instead of Spring Data JPA to communicate with the database.
 
-Instructions for building the updated Java application are in the [java-app-v2](./java-app-v2) directory or: 
+Instructions for building the updated Java application are in the [java-app-v2](./java-app-v2) directory or to just build the image: 
 
 ```PowerShell
-C:\> cd ./java-app-v2
+C:\> cd .\java-app-v2
 C:\> docker image build -t java_web:2 .
 ```
 
@@ -58,7 +58,7 @@ C:\> docker image build -t dotnet_api .
 
 Instructions for deploying on Docker EE are available in the [Docker EE Workshop](https://github.com/dockersamples/ee-workshop#task-3-deploy-the-next-version-with-a-windows-node) which uses Play With Docker, an on line Docker environment.
 
-To run the application locally in Windows:
+To run the application locally in Docker for Windows CE Edge:
 
 ```
 C:\> docker swarm init

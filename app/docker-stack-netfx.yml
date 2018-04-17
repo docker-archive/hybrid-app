@@ -51,3 +51,4 @@ networks:
 
 secrets:
   mysql_password:
+    file: ./secrets/mysql_password

@@ -2,28 +2,32 @@
 
 This application demonstrates running both Linux and Windows containers within the same cluster. The application is used in the [Docker Enterprise Edition](https://github.com/dockersamples/ee-workshop) workshop.
 
-The purpose of this tutorial is demonstrate how an application can be deployed in different scenarios using Docker Enterprise Edition or Docker Community Edition. The first scenario is a monolithic Java CRUD (Create Read Update Delete) application that uses Springboot, Java Server Pages and MySQL. The second scenario adds a REST microservice written with DotNet Framework and running in a Windows container. The third scenario uses a REST microservice written with DotNet Core running in a Linux container. Each scenario uses a different orchestrator to deploy the application.
+The purpose of this tutorial is demonstrate how an application can be deployed in different scenarios using Docker Enterprise Edition or Docker Community Edition. The first scenario is a monolithic Java CRUD (Create Read Update Delete) application that uses Springboot, Java Server Pages and MySQL. The second scenario adds a REST microservice written with .Net Framework and running in a Windows container. The third scenario uses a REST microservice written with .Net Core running in a Linux container. Each scenario uses a different orchestrator to deploy the application.
 
 ## MySQL Database
 
-All three scenarios use a MySQL database to store data. MySQL requires a root password and this set using Docker Secrets where the password is set from a file. To build the container:
+All three scenarios use a MySQL database to store data. To build the container:
 
 ```
-$ docker secret create mysql_password ./database/secrets/mysql_password
 $ cd ./database
 $ docker image build -t database .
 ``` 
 
 ## Java Application
 
-The Java application is in the [java-app](./java-app) directory. To build the application, follow the [instructions](./java-app/README.md) in the application directory or build it ma
+The Java application is in the [java-app](./java-app) directory. To build the application, follow the [instructions](./java-app/README.md) in the application directory or build it locally:
+
+```
+$ cd ./java-app
+$ docker image build -t java-web .
+```
 
 To deploy both the application and the database, we use a Docker Compose file.
 
 To start the application user Docker Compose:
 ```
-$ cd ./java-app
-$ docker-compose up -d
+$ cd ./hybrid-app
+$ docker-compose -f ./app/docker-compose-java.yml up -d
 ```
 
 To try out the application go to [http://localhost:8080/java-web](http://localhost:8080/java-web). 
@@ -33,7 +37,7 @@ To shut down the application:
 $ docker-compose down
 ```
 
-## Java and DotNet Framework Application
+## Java and .Net Framework Application
 
 This version of the application introduces a REST microservice written in DotNet Framework and running in a Windows container that reads and writes to the MySQL database. The Java application was rewritten to use the microservice instead of Spring Data JPA to communicate with the database.
 
@@ -68,7 +72,7 @@ To shutdown the application:
 C:\> docker stack rm signup
 ```
 
-## Java and DotNet Core Application
+## Java and .Net Core Application
 
 In this scenario, we'll reuse the java_web:2 container and build a new image of the REST microservice using DotNet Core which runs in a Linux container.
 
@@ -90,7 +94,7 @@ docker-for-desktop
 To run the application:
 
 ```
-$ docker stack deploy -c .\app\docker-stack-k8s.yml signup
+$ docker stack deploy -c ./app/docker-stack-k8s.yml signup
 ```
 To shutdown the application:
 

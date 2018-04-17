@@ -55,7 +55,7 @@ docker image build -t java-app .
 
 ## Running the Application
 
-To deploy both the application and the database, we user a Docker Compose file. MySQL requires a root password and this set using Docker Secrets. In this case the password is set from a file. Docker Secrets is available in Swarm mode, to enable Swarm type:
+To deploy both the application and the database, we use a Docker Compose file. MySQL requires a root password and this set using Docker Secrets. In this case the password is set from a file. Docker Secrets is available in Swarm mode, to enable Swarm type:
 ```
 docker swarm init
 ```

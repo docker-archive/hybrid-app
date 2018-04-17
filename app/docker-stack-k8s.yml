@@ -1,0 +1,52 @@
+version: '3.3'
+
+services:
+  database:
+    deploy:
+      placement:
+        constraints:
+        - node.platform.os == linux
+    image: database
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql_password
+    networks:
+      back-tier:
+    ports:
+    - published: 3306
+      target: 3306
+
+  dotnet-api:
+    deploy:
+      placement:
+        constraints:
+        - node.platform.os == linux
+    image: dotnet_api:core
+    networks:
+      back-tier:
+    ports:
+    - published: 57989
+      target: 80
+
+  java-web:
+    deploy:
+      placement:
+        constraints:
+        - node.platform.os == linux
+    image: java_web:2
+    environment:
+      BASEURI: http://dotnet-api/api/users
+    networks:
+      back-tier:
+      front-tier:
+    ports:
+    - published: 8080
+      target: 8080
+
+networks:
+  back-tier:
+  front-tier:
+    external: true
+
+secrets:
+  mysql_password:
+    external: true

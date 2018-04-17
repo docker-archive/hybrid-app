@@ -1,0 +1,53 @@
+version: '3.3'
+
+services:
+
+  database:
+    image:  database
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql_password
+    networks:
+      back-tier: null
+    deploy:
+      endpoint_mode: dnsrr
+      placement:
+        constraints:
+        - node.platform.os == linux
+
+  dotnet-api:
+    image: dotnet_api
+    ports:
+    - mode: host
+      published: 8081
+      target: 80
+    networks:
+      back-tier: null
+    deploy:
+      mode: global
+      endpoint_mode: dnsrr
+      placement:
+        constraints:
+        - node.platform.os == windows
+
+  java-web:
+    image: java_web:2
+    environment:
+      BASEURI: http://dotnet-api/api/users
+    ports:
+    - mode: ingress
+      published: 8080
+      target: 8080
+    networks:
+      back-tier: null
+      front-tier: null
+    deploy:
+      placement:
+        constraints:
+        - node.platform.os == linux
+
+networks:
+  back-tier: {}
+  front-tier: {}
+
+secrets:
+  mysql_password:

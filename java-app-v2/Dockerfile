@@ -29,11 +29,6 @@ ADD tomcat/mysql-connector-java-5.1.36-bin.jar $CATALINA_HOME/lib/
 WORKDIR $CATALINA_HOME/webapps/
 COPY --from=devenv /usr/src/java-app/target/java-web.war .
 
-# add tomcat jpda debugging environmental variables
-#ENV JPDA_OPTS="-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n"
-ENV JPDA_ADDRESS="8000"
-ENV JPDA_TRANSPORT="dt_socket"
-
-# start tomcat7 with remote debugging
+# start tomcat7 
 EXPOSE 8080
 CMD ["run.sh"]

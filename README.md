@@ -39,7 +39,7 @@ $ docker-compose down
 
 ## Java and .Net Framework Application
 
-This version of the application introduces a REST microservice written in DotNet Framework and running in a Windows container that reads and writes to the MySQL database. The Java application was rewritten to use the microservice instead of Spring Data JPA to communicate with the database.
+This version of the application introduces a REST microservice written in .Net Framework and running in a Windows container that reads and writes to the MySQL database. The Java application was rewritten to use the microservice instead of Spring Data JPA to communicate with the database.
 
 Instructions for building the updated Java application are in the [java-app-v2](./java-app-v2) directory or: 
 
@@ -48,7 +48,7 @@ C:\> cd ./java-app-v2
 C:\> docker image build -t java_web:2 .
 ```
 
- The DotNet Framework microservice must be built in a Windows host, clone the repository and build the image:
+ The .Net Framework microservice must be built in a Windows host, clone the repository and build the image:
 
 ``` PowerShell
 C:\> git clone https://github.com/dockersamples/hybrid-app.git
@@ -74,9 +74,9 @@ C:\> docker stack rm signup
 
 ## Java and .Net Core Application
 
-In this scenario, we'll reuse the java_web:2 container and build a new image of the REST microservice using DotNet Core which runs in a Linux container.
+In this scenario, we'll reuse the java_web:2 container and build a new image of the REST microservice using .Net Core which runs in a Linux container.
 
-To build the the DotNet Core microservice:
+To build the the .Net Core microservice:
 ```
 $ cd ./dotnet-api
 $ docker image build -t dotnet_api:core .

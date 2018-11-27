@@ -1,5 +1,5 @@
 # escape=`
-FROM microsoft/aspnetcore-build:2.0.3-2.1.2 AS builder
+FROM microsoft/dotnet:2.1-sdk-alpine as builder
 
 WORKDIR /src
 COPY SignupApiCore/SignupApiCore.csproj .
@@ -9,9 +9,9 @@ COPY SignupApiCore/ .
 RUN dotnet publish
 
 # app image
-FROM microsoft/aspnetcore:2.0.3-stretch
+FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine
 
 CMD ["dotnet", "SignupApiCore.dll"]
 
 WORKDIR /dotnetapp
-COPY --from=builder /src/bin/Debug/netcoreapp2.0/publish .
+COPY --from=builder /src/bin/Debug/netcoreapp2.1/publish .

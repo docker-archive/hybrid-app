@@ -1,16 +1,18 @@
 # escape=`
-FROM dockersamples/mta-dev-web-builder:4.7.1 AS builder
+FROM microsoft/dotnet-framework:4.7.2-sdk AS builder
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
-WORKDIR C:\src\SignupApi
-COPY .\SignupApi\packages.config .
-RUN nuget restore packages.config -PackagesDirectory ..\packages
+WORKDIR C:\src
+COPY .\SignupApi.sln C:\src\
+COPY .\SignupApi\SignupApi.csproj .\SignupApi\
+COPY .\SignupApi\packages.config .\SignupApi\
+RUN nuget restore SignupApi.sln
 
 COPY . C:\src
-RUN msbuild SignupApi.csproj /p:OutputPath=c:\out /p:DeployOnBuild=true
+RUN msbuild SignupApi.sln /p:OutputPath=c:\out /p:Configuration=Release
 
 # app image
-FROM microsoft/aspnet:4.7.1-windowsservercore-10.0.14393.1884
+FROM microsoft/aspnet:4.7.2-windowsservercore-ltsc2016
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop';"]
 
 ENV APP_ROOT="C:\web-app" `
